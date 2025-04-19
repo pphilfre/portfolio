@@ -75,7 +75,7 @@ const CustomCursor = () => {
     transform: `translate(calc(${position.x}px - 50%), calc(${position.y}px - 50%)) scale(${clicked ? 0.8 : linkHovered ? 1.5 : 1})`,
     opacity: hidden ? 0 : 1,
     backgroundColor: linkHovered ? 'rgba(155, 135, 245, 0.1)' : 'transparent',
-    mixBlendMode: 'normal',
+    mixBlendMode: 'normal' as const, // Fix: Explicitly type as const
   };
 
   return (

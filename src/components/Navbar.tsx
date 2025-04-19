@@ -1,114 +1,129 @@
 
 import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const Navbar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  
+  // Handle scroll event
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      const isScrolled = window.scrollY > 20;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
       }
     };
-
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [scrolled]);
+
+  // Close menu when route changes
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
+  const navItems = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Projects', path: '/projects' },
+    { name: 'Homelab', path: '/homelab' },
+    { name: 'Contact', path: '/contact' }
+  ];
 
   return (
     <header 
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'glassmorphism py-3' : 'py-6'
+        scrolled ? 'bg-cyber-dark/80 backdrop-blur-md shadow-md' : 'bg-transparent'
       }`}
     >
-      <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-        <a href="#hero" className="text-2xl font-mono font-bold text-white hover-effect">
-          <span className="text-cyber-primary">&lt;</span>
-          Portfolio
-          <span className="text-cyber-primary">/&gt;</span>
-        </a>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8">
-          <a href="#about" className="text-white/80 hover:text-cyber-primary transition-colors duration-300 hover-effect">
-            About
-          </a>
-          <a href="#projects" className="text-white/80 hover:text-cyber-primary transition-colors duration-300 hover-effect">
-            Projects
-          </a>
-          <a href="#homelab" className="text-white/80 hover:text-cyber-primary transition-colors duration-300 hover-effect">
-            Homelab
-          </a>
-          <a href="#journey" className="text-white/80 hover:text-cyber-primary transition-colors duration-300 hover-effect">
-            Journey
-          </a>
-          <a href="#contact" className="text-white/80 hover:text-cyber-primary transition-colors duration-300 hover-effect">
-            Contact
-          </a>
-        </nav>
-
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden text-white hover:text-cyber-primary hover-effect" 
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-            {mobileMenuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex justify-between items-center">
+          <Link 
+            to="/" 
+            className="text-xl md:text-2xl font-bold font-mono text-cyber-primary hover-effect"
+          >
+            YourName
+            <span className="text-white">.dev</span>
+          </Link>
+          
+          {/* Desktop Menu */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`text-sm font-mono py-1 hover-effect relative ${
+                  location.pathname === item.path
+                    ? 'text-cyber-primary'
+                    : 'text-white/80 hover:text-white'
+                }`}
+              >
+                {location.pathname === item.path && (
+                  <motion.span
+                    className="absolute -bottom-1 left-0 w-full h-0.5 bg-cyber-primary"
+                    layoutId="navbar-indicator"
+                  />
+                )}
+                {item.name}
+              </Link>
+            ))}
+          </nav>
+          
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden text-white p-1"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle Menu"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor" 
+              className="w-6 h-6"
+            >
+              {menuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
-
+      
       {/* Mobile Menu */}
-      <div 
-        className={`md:hidden glassmorphism border-t border-white/10 transition-all duration-300 overflow-hidden ${
-          mobileMenuOpen ? 'max-h-64 py-4' : 'max-h-0 py-0'
-        }`}
-      >
-        <nav className="flex flex-col space-y-4 px-4">
-          <a 
-            href="#about" 
-            className="text-white/80 hover:text-cyber-primary py-2 transition-colors duration-300"
-            onClick={() => setMobileMenuOpen(false)}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-cyber-dark/95 backdrop-blur-lg border-t border-cyber-primary/20"
           >
-            About
-          </a>
-          <a 
-            href="#projects" 
-            className="text-white/80 hover:text-cyber-primary py-2 transition-colors duration-300"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Projects
-          </a>
-          <a 
-            href="#homelab" 
-            className="text-white/80 hover:text-cyber-primary py-2 transition-colors duration-300"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Homelab
-          </a>
-          <a 
-            href="#journey" 
-            className="text-white/80 hover:text-cyber-primary py-2 transition-colors duration-300"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Journey
-          </a>
-          <a 
-            href="#contact" 
-            className="text-white/80 hover:text-cyber-primary py-2 transition-colors duration-300"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Contact
-          </a>
-        </nav>
-      </div>
+            <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`text-sm font-mono py-2 px-4 rounded-md ${
+                    location.pathname === item.path
+                      ? 'bg-cyber-primary/20 text-cyber-primary'
+                      : 'text-white/80 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

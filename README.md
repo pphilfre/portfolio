@@ -1,73 +1,133 @@
-# Welcome to your Lovable project
+# Cyberglow Portfolio
 
-## Project info
+A modern, cybersecurity-themed portfolio website built with React, Three.js, and Tailwind CSS. This portfolio features sleek 3D animations, holographic stats displays, and a futuristic cyberpunk design.
 
-**URL**: https://lovable.dev/projects/d337119b-18e4-4106-b776-b85d75dc4fda
+![Cyberglow Portfolio Preview](public/preview.png)
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- 🌐 Interactive 3D background with Three.js
+- 🔮 Holographic statistics display
+- 🎨 Cyberpunk-inspired UI with glitch effects
+- 💻 Responsive design for all devices
+- ⚡ Fast performance with Vite
+- 🔧 TypeScript for type safety
+- 🎭 Smooth animations with Framer Motion
+- 🔒 Cybersecurity themed components
 
-**Use Lovable**
+## Getting Started
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d337119b-18e4-4106-b776-b85d75dc4fda) and start prompting.
+### Prerequisites
 
-Changes made via Lovable will be committed automatically to this repo.
+- Node.js (v16+)
+- npm or yarn
 
-**Use your preferred IDE**
+### Installation
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/cyberglow-portfolio.git
+cd cyberglow-portfolio
 ```
 
-**Edit a file directly in GitHub**
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+3. Start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-**Use GitHub Codespaces**
+4. Open your browser and visit `http://localhost:5173`
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Customization
 
-## What technologies are used for this project?
+### Personal Information
 
-This project is built with:
+Edit the following files to customize your personal information:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- `src/pages/Home.tsx` - Main homepage content, services, and about sections
+- `src/components/Layout.tsx` - Footer information
+- `src/components/Navbar.tsx` - Navigation links
 
-## How can I deploy this project?
+### Theme Colors
 
-Simply open [Lovable](https://lovable.dev/projects/d337119b-18e4-4106-b776-b85d75dc4fda) and click on Share -> Publish.
+The theme colors are defined in the `src/index.css` file. You can modify the following CSS variables to match your personal brand:
 
-## Can I connect a custom domain to my Lovable project?
+```css
+:root {
+  --cyber-primary: 155, 135, 245;      /* #9b87f5 - Main purple */
+  --cyber-secondary: 49, 10, 93;       /* #310a5d - Dark purple */
+  --cyber-accent: 0, 255, 196;         /* #00ffc4 - Cyan accent */
+  --cyber-red: 255, 65, 84;            /* #ff4154 - Red accent */
+  --background: 18, 18, 18;            /* #121212 - Background black */
+}
+```
 
-Yes, you can!
+### 3D Background
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+The 3D background is created using Three.js and can be customized in the `src/components/CyberGrid.tsx` file. You can modify the grid size, colors, and animation properties.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### Stats and Services
+
+- Update the statistics in `src/components/HolographicStats.tsx`
+- Modify services in the `services` array in `src/pages/Home.tsx`
+
+## Project Structure
+
+```
+cyberglow-portfolio/
+├── public/              # Static assets
+├── src/
+│   ├── components/      # Reusable components
+│   ├── pages/           # Page components
+│   ├── hooks/           # Custom React hooks
+│   ├── lib/             # Utility functions and libraries
+│   ├── App.tsx          # Main app component
+│   └── main.tsx         # Application entry point
+├── index.html           # HTML template
+└── package.json         # Project dependencies and scripts
+```
+
+## Building for Production
+
+To build the site for production, run:
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+The built files will be in the `dist/` directory.
+
+## Technologies Used
+
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Three.js](https://threejs.org/)
+- [React Three Fiber](https://github.com/pmndrs/react-three-fiber)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [FontAwesome](https://fontawesome.com/)
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Design inspiration from modern cybersecurity websites
+- Three.js examples and documentation
+- React Three Fiber community
+
+---
+
+Made with ❤️ by [Your Name]

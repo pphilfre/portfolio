@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -25,6 +24,10 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        'cyber-primary': "rgb(var(--cyber-primary))",
+        'cyber-secondary': "rgb(var(--cyber-secondary))",
+        'cyber-accent': "rgb(var(--cyber-accent))",
+        'cyber-red': "rgb(var(--cyber-red))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -96,6 +99,14 @@ export default {
           "0%, 100%": { boxShadow: "0 0 8px 2px rgba(155, 135, 245, 0.2)" },
           "50%": { boxShadow: "0 0 18px 6px rgba(155, 135, 245, 0.4)" },
         },
+        "glow": {
+          '0%, 100%': { 
+            textShadow: '0 0 5px rgba(155, 135, 245, 0.4), 0 0 20px rgba(155, 135, 245, 0.2)'
+          },
+          '50%': { 
+            textShadow: '0 0 15px rgba(155, 135, 245, 0.6), 0 0 30px rgba(155, 135, 245, 0.4)' 
+          },
+        },
         float: {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
@@ -109,6 +120,7 @@ export default {
         "fade-in-left": "fade-in-left 0.7s ease-out forwards",
         "background-pan": "background-pan 15s ease infinite alternate",
         "pulse-glow": "pulse-glow 2s infinite",
+        "glow": "glow 2s ease-in-out infinite",
         "float": "float 4s ease-in-out infinite",
       },
       fontFamily: {
@@ -117,5 +129,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require('@tailwindcss/typography')],
 } satisfies Config;
